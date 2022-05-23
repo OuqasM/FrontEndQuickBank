@@ -1,1 +1,24 @@
-<p>clients works!</p>
+<nav class=" navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar navbar-nav">
+        <li>
+             <button (click)="onGetAllClients()" class="btn btn-sm btn-outline-info ms-2">Clients </button>
+        </li>
+        <li>
+             <button (click)="onGetClientsDesireSupprimer()" class="btn btn-sm btn-outline-info ms-2">Desire Supprimée</button>
+        </li>
+        <li>
+            <button (click)="onGetClientsNonConfirmer()" class="btn btn-sm btn-outline-info ms-2">Client Non Confirmer</button>
+       </li>
+       
+    </ul>
+    <ul class="navbar nabvar-nav ms-auto">
+        <li>
+            <form  class="form-inline">
+                <input name="keyword" type="text" >
+                <button class="btn btn-sm btn-outline-info">
+                    <span class="fa fa-search"></span>
+                </button>
+            </form>
+        </li>
+    </ul>
+</nav>

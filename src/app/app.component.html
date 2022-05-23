@@ -1,2 +1,71 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<!-- <app-navbar></app-navbar>
+<router-outlet></router-outlet> -->
+<mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button *ngIf="sidenav?.mode === 'over'" (click) = "sidenav.toggle()" >
+        <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+        <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+    </button>
+    
+    QuickBanck
+</mat-toolbar>
+
+<mat-sidenav-container>
+    
+    <mat-sidenav #sidnav="matSidenav">        
+        <div *ngIf="AuthentificatedUser">
+            <img class="avatar mat-elevation-z8" [src]="AuthentificatedUser?.role[0] === 'ADMIN'? '/assets/avataradmin.jpg' : '/assets/avatarclient.jpg' " />
+            <h4 class="name">{{AuthentificatedUser.sub}}</h4>
+            <p class="designation">({{AuthentificatedUser.role[0]}})</p>
+        </div>
+        <mat-divider></mat-divider>
+        <a routerLink="/" mat-button class="menu-button">
+            <mat-icon>account_balance</mat-icon>
+            <span>Acceuil</span>
+        </a>
+        <div *ngIf="AuthentificatedUser?.role[0] === 'ADMIN'" >
+            <a routerLink="/administrateur/clients" mat-button class="menu-button">
+                <mat-icon>assignment_ind</mat-icon>
+                <span>Clients</span>
+            </a>
+            <a routerLink="/administrateur/comptes" mat-button class="menu-button">
+                <mat-icon>monetization_on</mat-icon>
+                <span>Comptes</span>
+            </a>
+            <a routerLink="/administrateur/posts" mat-button class="menu-button">
+                <mat-icon>rate_review</mat-icon>
+                <span>Postes</span>
+            </a>
+            <!-- <a routerLink="/administrateur/users" mat-button class="menu-button">
+                <mat-icon>info</mat-icon>
+                <span>Gérer </span>
+            </a> -->
+            <mat-divider></mat-divider>
+        </div>
+        <div *ngIf="AuthentificatedUser?.role[0] === 'CLIENT'" >
+            <a routerLink="/client/mescomptes" mat-button class="menu-button">
+                <mat-icon>monetization_on</mat-icon>
+                <span>Comptes</span>
+            </a>
+            <a routerLink="/client/mespostes" mat-button class="menu-button">
+                <mat-icon>assignment_ind</mat-icon>
+                <span>Commentaires</span>
+            </a>
+            <mat-divider></mat-divider>
+        </div>
+
+        <button *ngIf="AuthentificatedUser" mat-button class="menu-button" (click)="logout()" >
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+        </button>
+        <a *ngIf="!AuthentificatedUser"  mat-button class="menu-button" routerLink="login" >
+            <mat-icon>login</mat-icon>
+            <span>Login</span>
+        </a>
+    </mat-sidenav>
+    <mat-sidenav-content>
+            <div class="content">
+                <router-outlet></router-outlet>
+            </div>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>
