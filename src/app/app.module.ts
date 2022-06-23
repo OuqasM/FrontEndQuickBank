@@ -15,7 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { UtilisateursComponent } from './components/administrateur/utilisateurs/utilisateurs.component';
 import { MespostesComponent } from './components/client/mespostes/mespostes.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import  { MatToolbarModule } from '@angular/material/toolbar';
 import  { MatSidenavModule } from '@angular/material/sidenav';
@@ -24,6 +24,15 @@ import  { MatIconModule } from '@angular/material/icon';
 import  { MatDividerModule } from '@angular/material/divider';
 import { MescomptesComponent } from './components/client/mescomptes/mescomptes.component';
 import { AcceuilComponent } from './components/acceuil/acceuil.component';
+import { MatTableModule } from '@angular/material/table';
+import { JwtInterceptor } from './jwt.interceptor';
+import { ModifierclientComponent } from './components/administrateur/clients/modifierclient/modifierclient.component';
+import { AjouterclientComponent } from './components/administrateur/clients/ajouterclient/ajouterclient.component';
+import { FormSignUpComponent } from './components/form-sign-up/form-sign-up.component';
+import { BankingComponent } from './components/banking/banking.component';
+import { RaclamationComponent } from './components/banking/raclamation/raclamation.component';
+import { ExchangeComponent } from './components/banking/exchange/exchange.component';
+import { ChartComponent } from './components/banking/chart/chart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +48,13 @@ import { AcceuilComponent } from './components/acceuil/acceuil.component';
     MespostesComponent,
     MescomptesComponent,
     AcceuilComponent,
+    ModifierclientComponent,
+    AjouterclientComponent,
+    FormSignUpComponent,
+    BankingComponent,
+    RaclamationComponent,
+    ExchangeComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,10 +67,17 @@ import { AcceuilComponent } from './components/acceuil/acceuil.component';
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTableModule
   
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : JwtInterceptor,
+      multi : true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

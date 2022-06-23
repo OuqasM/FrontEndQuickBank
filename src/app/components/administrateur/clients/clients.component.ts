@@ -1,8 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Client } from 'src/app/models/Client.model';
 import { EventDrivenService } from 'src/app/services/event.driven.service';
+import { ClientService } from 'src/app/services/client.service';
 import { ActionEvent, ActionEventType, AppDataState, DataStateEnum } from 'src/app/state/product.state';
+import { map,startWith  , catchError } from 'rxjs/operators';
+
+
+
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
 
 @Component({
   selector: 'app-clients',
@@ -10,15 +22,23 @@ import { ActionEvent, ActionEventType, AppDataState, DataStateEnum } from 'src/a
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit {
-
   showedclients$:Observable<AppDataState<Client[]>>|null = null;
   readonly DataStateEnum = DataStateEnum;
 
+  displayedColumns: string[] = ['id', 'nom', 'prenom', 'mail','username','motdepasse'];
+  dataSource = this.showedclients$;
 
-  constructor(private eventdriverservice: EventDrivenService) { }
+
+  constructor(private eventdriverservice: EventDrivenService, private clientService:ClientService) { }
 
   ngOnInit(): void {
     console.log("ana hnaa");
+
+    this.showedclients$ = this.clientService.clients().pipe(
+      map(data => ({dataState : DataStateEnum.LOADED , data : data})),
+      startWith({dataState : DataStateEnum.LOADING}),
+      catchError(err => of({dataState : DataStateEnum.ERROR , errorMessage : err.message}))
+    );
 
     this.eventdriverservice.sourceEventSubjectObservbale.subscribe((action:ActionEvent)=> {
       this.action(action);

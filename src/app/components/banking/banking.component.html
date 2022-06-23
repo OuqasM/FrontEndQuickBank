@@ -1,0 +1,38 @@
+
+
+<div class="main-page page" style="color: white;">
+    <section class="main-page-content">
+      <h2>L'outil monétaire le plus populaire au monde</h2><br>
+      <p>Consultez les taux de change, envoyez de l'argent à l'international et utilisez des outils monétaires gratuits</p><br><br>
+      <div class="exchangeContainer" style="overflow: hidden;">
+          <div class="topExbloc">
+              <button routerLink="/exchange/treading">Exchange</button>
+              <button routerLink="/exchange/send">Send</button>
+              <button routerLink="/exchange/chart">Chart</button>
+          </div>
+          <div style="color: black;" class="bodyExBloc">
+            <router-outlet></router-outlet>
+          </div>
+      </div>
+    </section>
+  </div>
+  
+  <div class="about-page page">
+    <section class="about-page-content">
+    </section>
+  </div>
+  
+  
+  <!-- THE UNIVERSE. Code adapted from https://codepen.io/Acuetouag/pen/vOgmza -->
+  
+  <div class="universe">
+    <div class="universe-container">
+      <div class="content">
+        <canvas id="universe"></canvas>
+        <div id="footer">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
